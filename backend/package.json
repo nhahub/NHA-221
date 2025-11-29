@@ -1,0 +1,32 @@
+{
+  "name": "medicare-booking",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "start-dev": "nodemon index.js"
+  },
+  "author": "T4",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.19",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "googleapis": "^166.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.20.0",
+    "mongoose": "^8.19.1",
+    "nodemailer": "^7.0.10",
+    "nodemon": "^3.1.10",
+    "resend": "^6.5.2",
+    "serverless-http": "^4.0.0",
+    "stripe": "^19.2.0",
+    "uuid": "^13.0.0"
+  }
+}
