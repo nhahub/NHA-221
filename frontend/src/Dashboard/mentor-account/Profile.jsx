@@ -341,222 +341,346 @@ const Profile = ({ mentorData }) => {
   };
 
   return (
-  <div className="bg-white dark:bg-[#11112b] rounded-2xl shadow-md p-2 sm:p-4 md:p-6 w-full max-w-full transition-all duration-500">
+    <div className="bg-white dark:bg-[#0e0e24] rounded-3xl shadow-xl p-6 sm:p-8 md:p-12 transition-all duration-500 max-w-5xl mx-auto">
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-10 border-b border-gray-200 dark:border-gray-700 pb-4">
+        Profile Information
+      </h2>
 
-    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-8 border-b border-gray-200 dark:border-gray-700 pb-3">
-      Profile Information
-    </h2>
-
-    {/* Google Calendar */}
-    <div className="mb-6">
-      <h1 className="md:text-lg text-base font-semibold text-red-300 dark:text-gray-200 mb-4">
-        Please connect your Google Calendar to receive appointment bookings.
-      </h1>
-      <ConnectGoogleButton mentorId={mentorData?._id} />
-    </div>
-
-    <form onSubmit={updateProfileHandler} className="space-y-6">
-
-      {/* Basic Info */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-        {[
-          { label: "Name*", name: "name", type: "text", placeholder: "Full Name" },
-          { label: "Email*", name: "email", type: "email", placeholder: "Email", disabled: true },
-          { label: "Bio", name: "bio", type: "text", placeholder: "Short bio" },
-          { label: "Gender", name: "gender", type: "select", options: ["", "male", "female"] },
-          { label: "Specialization", name: "areaOfExpertise", type: "select", options: areaOfExpertiseOptions },
-          { label: "Job Title", name: "jobTitle", type: "text", placeholder: "Job Title" },
-          { label: "Hourly Fee", name: "hourlyFee", type: "number", placeholder: "Hourly Rate" },
-          { label: "Location", name: "location", type: "select", options: locationOptions },
-        ].map((field) => (
-          <div key={field.name} className="w-full">
-            <label className="form_label font-medium text-gray-700 dark:text-gray-200 mb-1 block">
-              {field.label}
-            </label>
-
-            {field.type === "select" ? (
-              <select
-                name={field.name}
-                value={formData[field.name]}
-                onChange={handleInputChange}
-                disabled={field.disabled}
-                className="form_input rounded-xl border border-gray-300 dark:border-gray-700 p-2.5 w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 transition"
-              >
-                {field.options.map((opt, i) => (
-                  <option key={i} value={opt}>
-                    {opt || "Select"}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <input
-                type={field.type}
-                name={field.name}
-                value={formData[field.name]}
-                onChange={handleInputChange}
-                placeholder={field.placeholder}
-                disabled={field.disabled}
-                className="form_input rounded-xl border border-gray-300 dark:border-gray-700 p-2.5 w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 transition"
-              />
-            )}
-          </div>
-        ))}
+      {/* Google Calendar Section */}
+      <div className="mb-10">
+        <h1 className="md:text-xl text-lg font-semibold text-red-400 dark:text-gray-300 mb-4 leading-relaxed">
+          Please connect your Google Calendar to receive appointment bookings.
+        </h1>
+        <ConnectGoogleButton mentorId={mentorData?._id} />
       </div>
 
-      {/* Array Sections: Qualifications, Experiences, Links */}
-      {[
-        {
-          key: "qualifications",
-          label: "Qualifications",
-          fields: [
-            { name: "startingDate", type: "date", label: "Start Date" },
-            { name: "endingDate", type: "date", label: "End Date" },
-            { name: "degree", type: "text", label: "Degree" },
-            { name: "university", type: "text", label: "University" },
-          ],
-          addItemFunc: () =>
-            addItem("qualifications", {
-              startingDate: "",
-              endingDate: "",
-              degree: "",
-              university: "",
-            }),
-        },
-        {
-          key: "experiences",
-          label: "Experiences",
-          fields: [
-            { name: "startingDate", type: "date", label: "Start Date" },
-            { name: "endingDate", type: "date", label: "End Date" },
-            { name: "position", type: "text", label: "Position" },
-            { name: "company", type: "text", label: "Company" },
-          ],
-          addItemFunc: () =>
-            addItem("experiences", {
-              startingDate: "",
-              endingDate: "",
-              position: "",
-              company: "",
-            }),
-        },
-        {
-          key: "links",
-          label: "Links",
-          fields: [
-            { name: "name", type: "text", label: "Name" },
-            { name: "link", type: "text", label: "Link" },
-          ],
-          addItemFunc: () => addItem("links", { name: "", link: "" }),
-        },
-      ].map(({ key, label, fields, addItemFunc }) => (
-        <div key={key} className="w-full mb-6">
+      <form onSubmit={updateProfileHandler} className="space-y-10">
+        {/* Basic Info */}
+        <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
+          {[
+            {
+              label: "Name*",
+              name: "name",
+              type: "text",
+              placeholder: "Full Name",
+            },
+            {
+              label: "Email*",
+              name: "email",
+              type: "email",
+              placeholder: "Email",
+              disabled: true,
+            },
+            {
+              label: "Bio",
+              name: "bio",
+              type: "text",
+              placeholder: "Short bio",
+            },
+            {
+              label: "Gender",
+              name: "gender",
+              type: "select",
+              options: ["", "male", "female"],
+            },
+            {
+              label: "Specialization",
+              name: "areaOfExpertise",
+              type: "select",
+              options: areaOfExpertiseOptions,
+            },
+            {
+              label: "Job Title",
+              name: "jobTitle",
+              type: "text",
+              placeholder: "Job Title",
+            },
+            {
+              label: "Hourly Fee",
+              name: "hourlyFee",
+              type: "number",
+              placeholder: "Hourly Rate",
+            },
+            {
+              label: "Location",
+              name: "location",
+              type: "select",
+              options: locationOptions,
+            },
+          ].map((field) => (
+            <div key={field.name}>
+              <label className="font-medium text-gray-700 dark:text-gray-200 mb-2 block">
+                {field.label}
+              </label>
 
-          <p className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-100">
-            {label}
-          </p>
-
-          {formData[key]?.map((item, index) => (
-            <div
-              key={index}
-              className="mb-4 w-full bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-2 shadow-sm"
-            >
-              <div className={`grid grid-cols-1 sm:grid-cols-${fields.length} gap-3 w-full`}>
-                {fields.map((field) => (
-                  <div key={field.name} className="w-full">
-                    <label className="form_label text-gray-700 dark:text-gray-200 mb-1 block">
-                      {field.label}
-                    </label>
-                    <input
-                      type={field.type}
-                      name={field.name}
-                      value={item[field.name]}
-                      onChange={(e) => updateItem(key, index, field.name, e.target.value)}
-                      className="form_input rounded-lg border border-gray-300 dark:border-gray-600 p-1 w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 transition"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  deleteItem(key, index);
-                }}
-                className="flex items-center justify-center mt-3 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg transition-all shadow-sm"
-              >
-                <AiOutlineDelete size={20} />
-              </button>
+              {field.type === "select" ? (
+                <select
+                  name={field.name}
+                  value={formData[field.name]}
+                  onChange={handleInputChange}
+                  disabled={field.disabled}
+                  className="rounded-xl border border-gray-300 dark:border-gray-700 p-3 w-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 outline-none transition"
+                >
+                  {field.options.map((option, idx) => (
+                    <option key={idx} value={option}>
+                      {option || "Select"}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  type={field.type}
+                  name={field.name}
+                  value={formData[field.name]}
+                  onChange={handleInputChange}
+                  placeholder={field.placeholder}
+                  disabled={field.disabled}
+                  className="rounded-xl border border-gray-300 dark:border-gray-700 p-3 w-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 outline-none transition"
+                />
+              )}
             </div>
           ))}
+        </div>
 
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              addItemFunc();
-            }}
-            className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg shadow-sm transition-all font-medium"
+        {/* Array Sections */}
+        {[
+          {
+            key: "qualifications",
+            label: "Qualifications",
+            fields: [
+              { name: "startingDate", type: "date", label: "Start Date" },
+              { name: "endingDate", type: "date", label: "End Date" },
+              { name: "degree", type: "text", label: "Degree" },
+              { name: "university", type: "text", label: "University" },
+            ],
+            addItemFunc: () =>
+              addItem("qualifications", {
+                startingDate: "",
+                endingDate: "",
+                degree: "",
+                university: "",
+              }),
+          },
+          {
+            key: "experiences",
+            label: "Experiences",
+            fields: [
+              { name: "startingDate", type: "date", label: "Start Date" },
+              { name: "endingDate", type: "date", label: "End Date" },
+              { name: "position", type: "text", label: "Position" },
+              { name: "company", type: "text", label: "Company" },
+            ],
+            addItemFunc: () =>
+              addItem("experiences", {
+                startingDate: "",
+                endingDate: "",
+                position: "",
+                company: "",
+              }),
+          },
+          {
+            key: "links",
+            label: "Links",
+            fields: [
+              { name: "name", type: "text", label: "Name" },
+              { name: "link", type: "text", label: "Link" },
+            ],
+            addItemFunc: () => addItem("links", { name: "", link: "" }),
+          },
+        ].map(({ key, label, fields, addItemFunc }) => (
+          <div
+            key={key}
+            className="bg-gray-100 dark:bg-gray-900 p-6 rounded-2xl shadow-md"
           >
-            + Add {label}
+            <p className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
+              {label}
+            </p>
+
+            {formData[key]?.map((item, index) => (
+              <div
+                key={index}
+                className="mb-5 p-5 bg-white dark:bg-gray-800 rounded-xl shadow border border-gray-200 dark:border-gray-700"
+              >
+                <div className={`grid grid-cols-${fields.length} gap-4`}>
+                  {fields.map((field) => (
+                    <div key={field.name}>
+                      <label className="text-gray-700 dark:text-gray-200 mb-1 block">
+                        {field.label}
+                      </label>
+                      <input
+                        type={field.type}
+                        name={field.name}
+                        value={item[field.name]}
+                        onChange={(e) =>
+                          updateItem(key, index, field.name, e.target.value)
+                        }
+                        className="rounded-lg border border-gray-300 dark:border-gray-600 p-2 w-full bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 outline-none transition"
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    deleteItem(key, index);
+                  }}
+                  className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl shadow transition flex items-center justify-center"
+                >
+                  <AiOutlineDelete size={20} />
+                </button>
+              </div>
+            ))}
+
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                addItemFunc();
+              }}
+              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-2 rounded-xl shadow-md font-medium transition"
+            >
+              + Add {label}
+            </button>
+          </div>
+        ))}
+
+        {/* Time Slots */}
+        {[
+          {
+            key: "timeSlots",
+            label: "Time Slots",
+            fields: [
+              { name: "day", type: "date", label: "Day" },
+              { name: "startingTime", type: "time", label: "Start Time" },
+              { name: "endingTime", type: "time", label: "End Time" },
+            ],
+            addItemFunc: () =>
+              addItem("timeSlots", {
+                day: "",
+                startingTime: "",
+                endingTime: "",
+              }),
+          },
+        ].map(({ key, label, fields, addItemFunc }) => (
+          <div
+            key={key}
+            className="bg-gray-100 dark:bg-gray-900 p-6 rounded-2xl shadow-md"
+          >
+            <p className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
+              {label}
+            </p>
+
+            {formData[key]?.map((item, index) => (
+              <div
+                key={index}
+                className="mb-5 p-5 bg-white dark:bg-gray-800 rounded-xl shadow border border-gray-200 dark:border-gray-700"
+              >
+                <div className={`grid grid-cols-${fields.length} gap-4`}>
+                  {fields.map((field) => (
+                    <div key={field.name}>
+                      <label className="text-gray-700 dark:text-gray-200 mb-1 block">
+                        {field.label}
+                      </label>
+
+                      <input
+                        type={field.type}
+                        name={field.name}
+                        value={item[field.name]}
+                        onChange={(e) =>
+                          updateTimeSlots(
+                            key,
+                            index,
+                            field.name,
+                            e.target.value
+                          )
+                        }
+                        className="rounded-lg border border-gray-300 dark:border-gray-600 p-2 w-full bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 outline-none transition"
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    deleteItem(key, index);
+                  }}
+                  className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl shadow transition flex items-center justify-center"
+                >
+                  <AiOutlineDelete size={20} />
+                </button>
+              </div>
+            ))}
+
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                addItemFunc();
+              }}
+              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-2 rounded-xl shadow-md font-medium transition"
+            >
+              + Add {label}
+            </button>
+          </div>
+        ))}
+
+        {/* About */}
+        <div>
+          <label className="font-medium text-gray-700 dark:text-gray-200 mb-2 block">
+            About
+          </label>
+          <textarea
+            name="about"
+            rows={5}
+            value={formData.about}
+            onChange={handleInputChange}
+            placeholder="Write about yourself..."
+            className="rounded-xl border border-gray-300 dark:border-gray-700 p-3 w-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 outline-none transition"
+          />
+        </div>
+
+        {/* Photo Upload */}
+        <div className="flex items-center gap-6 flex-wrap">
+          {formData.photo && (
+            <figure className="w-[80px] h-[80px] rounded-full border-4 border-indigo-500 overflow-hidden shadow-lg">
+              <img
+                src={previewURL}
+                alt="Mentor"
+                className="w-full h-full object-cover"
+              />
+            </figure>
+          )}
+
+          <div className="relative">
+            <input
+              type="file"
+              id="customFile"
+              name="photo"
+              onChange={handleFileInputChange}
+              accept=".jpg,.png"
+              className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+            />
+            <label
+              htmlFor="customFile"
+              className="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-2 px-6 rounded-xl cursor-pointer shadow-lg transition-all"
+            >
+              Upload Photo
+            </label>
+          </div>
+        </div>
+
+        {/* Submit */}
+        <div className="flex justify-end pt-4">
+          <button
+            type="submit"
+            className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-10 rounded-2xl shadow-lg transition-all"
+          >
+            Update Profile
           </button>
         </div>
-      ))}
-
-      {/* About */}
-      <div>
-        <label className="form_label font-medium text-gray-700 dark:text-gray-200 mb-1 block">
-          About
-        </label>
-        <textarea
-          name="about"
-          rows={4}
-          value={formData.about}
-          onChange={handleInputChange}
-          placeholder="Write about yourself..."
-          className="form_input rounded-xl border border-gray-300 dark:border-gray-700 p-2.5 w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 transition"
-        />
-      </div>
-
-      {/* Photo Upload */}
-      <div className="flex items-center gap-4">
-        {formData.photo && (
-          <figure className="w-[70px] h-[70px] rounded-full border-2 border-indigo-500 overflow-hidden shadow-sm">
-            <img src={previewURL} alt="Mentor" className="w-full h-full object-cover" />
-          </figure>
-        )}
-
-        <div className="relative">
-          <input
-            type="file"
-            id="customFile"
-            name="photo"
-            onChange={handleFileInputChange}
-            accept=".jpg,.png"
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-          />
-
-          <label
-            htmlFor="customFile"
-            className="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-5 rounded-xl cursor-pointer shadow-sm transition-all"
-          >
-            Upload Photo
-          </label>
-        </div>
-      </div>
-
-      {/* Submit */}
-      <div className="flex justify-end pt-3">
-        <button
-          type="submit"
-          className="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2.5 px-8 rounded-xl shadow-md transition-all"
-        >
-          Update Profile
-        </button>
-      </div>
-
-    </form>
-  </div>
-);
-
+      </form>
+    </div>
+  );
 };
 
 export default Profile;
